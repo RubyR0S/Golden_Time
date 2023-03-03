@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8">
     <title>GoldenTime</title>
     <%= csrf_meta_tags %>
 
@@ -22,6 +21,7 @@
               <li class="nav-link px-2 text-white" href="#"><%= current_user.email %></li>
               <li><%= link_to 'Log Out', session_path, class: 'nav-link px-2 text-white', 
                    data: {method: :delete}%></li>
+              <li><%= link_to 'Edit Profile', edit_user_path(current_user), class: 'nav-link px-2 text-white'%></li>
             <% else %>
               <li><%= link_to 'Sign Up', new_user_path, class: 'nav-link px-2 text-white' %></li>
               <li><%= link_to 'Log in', new_session_path, class: 'nav-link px-2 text-white' %></li>

@@ -1,13 +1,14 @@
 class UsersController < ApplicationController
-  def index
-    @users = User.all
-  end
+  before_action :require_no_current_user, only: %i[new create]
+  before_action :require_current_user, only: %i[edit update]
+  before_action :find_user!, only: %i[edit update]
 
   def new
     @user = User.new
   end
 
   def create 
+    flash[:error]      = @user.errors.full_messages
     @user = User.new user_params
     if @user.save
       sign_in @user
@@ -18,7 +19,24 @@ class UsersController < ApplicationController
     end
   end
 
+  def edit
+  end
+
+  def update
+    flash[:error]      = @user.errors.full_messages
+    if @user.update user_params
+       flash[:success] = "Your profile succsessfully updated!"
+       redirect_to edit_user_path(@current_user)
+    else
+      render :edit
+    end
+  end
+
   private
+
+  def find_user!
+    @user = User.find params[:id]
+  end
 
   def user_params
     params.require(:user).permit(:email, :password, :password_confirmation)
