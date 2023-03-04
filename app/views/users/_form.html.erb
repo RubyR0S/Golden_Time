@@ -1,15 +1,12 @@
-<%= form_with model: @user do |f| %>
-  <% if @user.errors.any? %> 
-    <div id="error_explanation">
-      <div class="alert alert-danger">
-        The form contains <%= pluralize(@user.errors.count, "error") %>.
-      </div>
-      <ul>
-      <% @user.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li> 
-      <% end %>
-      </ul>
-    </div> 
+<%= form_for(@user) do |f| %>
+  <% if @user.errors.full_messages.any? %>
+    <div class="alert alert-danger">
+      <ul class="mb-0">
+        <% @user.errors.full_messages.each do |msg|%>
+          <li><%= msg %></li>
+        <% end %>
+      </ul> 
+    </div>
   <% end %>
   <div class="mb-3 row">
     <div class="col-sm-2 col-form-label">
