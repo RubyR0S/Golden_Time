@@ -1,0 +1,69 @@
+<h1>Placing an Order</h1>
+<%= form_for(@user) do |f| %>
+  <% if @user.errors.full_messages.any? %>
+    <div class="alert alert-danger">
+      <ul class="mb-0">
+        <% @user.errors.full_messages.each do |msg|%>
+          <li><%= msg %></li>
+        <% end %>
+      </ul> 
+    </div>
+  <% end %>
+  <h3>1.Your contact details</h3>
+  <div class="col-10">
+    <div class="d-flex justify-content-between">
+      <div class="col-sm-5">
+        <div class="form-group">
+          <%= f.label :first_name %>
+          <%= f.text_field :first_name, placeholder: 'First Name', class: 'form-control form-control-lg' %>
+        </div>
+      </div>
+
+      <div class="col-sm-5">
+        <div class="form-group">
+          <%= f.label :last_name %>
+          <%= f.text_field :last_name, placeholder: 'Last Name', class: 'form-control form-control-lg' %>
+        </div>
+      </div>
+    </div><br> 
+  </div>
+
+  <div class="mb-3">
+    <div class="col-sm-2 col-form-label">
+      <%= f.label :phone_number %>
+    </div>
+    <div class="col-sm-10">
+      <%= f.telephone_field :phone_number, placeholder: 'Phone Number', class: 'form-control form-control-lg' %>    
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <div class="col-sm-2 col-form-label">
+      <%= f.label :address %>
+    </div>
+    <div class="col-sm-10">
+      <%= f.text_field :address, placeholder: 'Your Address', class: 'form-control form-control-lg' %> 
+    </div>
+  </div>
+  <h3>2.Your order</h3>
+  <div class="menu-container col-8">
+    <ol><div class="row">
+    <% @order_items.each do |item| %>
+      <li><div class="card col-6">
+        <div class="card-body">
+          <h3><%= item.product.name %></h3>
+          <p><%= item.product.description %></p>
+          <h3><%= item.product.price %>$</h3>
+          <%= form_with model: item do |f| %>
+            <%= f.hidden_field :product_id, value: item.product.id %>
+            <%= f.hidden_field :quantity, value: item.quantity.to_i %>
+          <% end %>
+        </div>
+      </div></li>
+    <% end %>
+    </div></ol>
+    <h3>To be paid: <%= @current_order.total_sum %>$</h3>
+  </div>
+  <%= f.submit 'Order now', class: 'btn btn-primary btn-lg', redirect_to: products_path %><br>
+<% end %>
+<br>

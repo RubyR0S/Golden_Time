@@ -9,12 +9,47 @@
     </div>
   <% end %>
   <div class="mb-3 row">
+    <div class="col-sm-2 col-form-label"> 
+      <%= f.label :first_name %>
+    </div>
+    <div class="col-sm-10">
+      <%= f.text_field :first_name, placeholder: 'First Name', class: 'form-control form-control-lg' %>
+    </div>
+  </div>
+
+  <div class="mb-3 row">
+    <div class="col-sm-2 col-form-label">
+      <%= f.label :last_name %>
+    </div>
+    <div class="col-sm-10">
+      <%= f.text_field :last_name, placeholder: 'Last Name', class: 'form-control form-control-lg' %>
+    </div>
+  </div>
+
+  <div class="mb-3 row">
+    <div class="col-sm-2 col-form-label">
+      <%= f.label :address %>
+    </div>
+    <div class="col-sm-10">
+      <%= f.text_field :address, placeholder: 'Your Address', class: 'form-control form-control-lg' %> 
+    </div>
+  </div>
+
+  <div class="mb-3 row">
+    <div class="col-sm-2 col-form-label">
+      <%= f.label :phone_number %>
+    </div>
+    <div class="col-sm-10">
+      <%= f.telephone_field :phone_number, placeholder: 'Phone Number', class: 'form-control form-control-lg' %>    
+    </div>
+  </div>
+
+  <div class="mb-3 row">
     <div class="col-sm-2 col-form-label">
       <%= f.label :email %>
     </div>
-
     <div class="col-sm-10">
-      <%= f.email_field :email, placeholder: 'E-mail', class: 'form-control form-control-lg' %>
+      <%= f.text_field :email, placeholder: 'E-mail', class: 'form-control form-control-lg' %>
     </div>
   </div>
 
@@ -22,7 +57,6 @@
     <div class="col-sm-2 col-form-label">
       <%= f.label :password %> 
     </div>
-
     <div class="col-sm-10">
       <%= f.password_field :password, class: 'form-control form-control-lg' %>
     </div>
@@ -32,7 +66,6 @@
     <div class="col-sm-2 col-form-label">
       <%= f.label :password_confirmation %> 
     </div>
-
      <div class="col-sm-10">
       <%= f.password_field :password_confirmation, class: 'form-control form-control-lg' %>
     </div>
@@ -40,14 +73,3 @@
 
   <%= f.submit (@user.new_record? ? 'Register' : 'Save'), class: 'btn btn-primary btn-lg'%>
 <% end %>
-
-<style>
-
-#error_explanation {
-  width: 450px;
-  border: 2px solid red;
-  padding: 7px 7px 0;
-  margin-bottom: 20px;
-  background-color: #f0f0f0;
-}
-</style>

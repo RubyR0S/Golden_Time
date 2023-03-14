@@ -7,7 +7,7 @@
     </div>
 
     <div class="col-sm-10">
-      <%= f.email_field :email, placeholder: 'E-mail', class: 'form-control form-control-lg' %>
+      <%= f.text_field :email, placeholder: 'E-mail', class: "form-control form-control-lg#{' is-invalid' if flash[:danger]}" %>
     </div>
   </div>
 
@@ -17,7 +17,7 @@
     </div>
 
     <div class="col-sm-10">
-      <%= f.password_field :password, class: 'form-control form-control-lg' %>
+      <%= f.password_field :password, class: "form-control form-control-lg#{' is-invalid' if flash[:danger]}" %>
     </div>
   </div>
 

@@ -1,55 +1,20 @@
 class ProductsController < ApplicationController
   before_action :set_product, only: %i[ show edit update destroy ]
   before_action :set_cats
+  # before_action :set_user
+
   
-  # def search
-  #   query = params[:search]
-
-  #   results = Product.where('name LIKE ?', "%#{query}%")
-  #   if params[:filter] == 'Select Category'
-  #     @products = results
-  #   else
-  #     # 'Dairy Free' -> 'Dairy_Free' -> 'dairy_free' -> :dairy_free
-  #     symbol = params[:filter].gsub(/ /, '_').downcase!.to_sym
-  #     # @products = results.where(:dairy_free => true)
-  #     @products = results.whegre(symbol => true)
-  #   end
-
-  # end
-
-  # def search
-  #   @products = Product.where('name LIKE ?', "%#{params[:query]}%")
-  #   respond_to do |format|
-  #     format.js { render 'search.js.erb' }
-  #   end
-  # end
-
-  def search
-    if params[:search].blank? && params[:price_from].blank? && params[:price_to].blank? && params[:category_id].blank?
-      @products = Product.all
-    else
-      @products = Product.search(params)
-    end
-
-    # if params[:filter] == 'Select Category'
-    #   @products = results
-    # else
-    #   # 'Dairy Free' -> 'Dairy_Free' -> 'dairy_free' -> :dairy_free
-    #   symbol = params[:filter].gsub(/ /, '_').downcase!.to_sym
-    #   # @products = results.where(:dairy_free => true)
-    #   @products = results.whegre(symbol => true)
-    # end
-
-  end
-
-  # def search
-  #   query = params[:query]
-  #   where("name LIKE ?", "%#{query}%")
-  # end
-
   # GET /products or /products.json
   def index
     @products = Product.all
+    @order_item = current_order.order_items.new
+
+    @products = @products.where(category_id: params[:category_id])                                                   if params[:category_id].present?
+    @products = @products.where("name LIKE ? or description LIKE ?", "%#{params[:search]}%", "%#{params[:search]}%") if params[:search].present?
+    @products = @products.where("price >= ?", params[:price_from])                                                   if params[:price_from].present?
+    @products = @products.where("price <= ?", params[:price_to])                                                     if params[:price_to].present?
+    @price_from = params[:price_from]
+    @products
   end
 
   # GET /products/1 or /products/1.json
@@ -107,6 +72,10 @@ class ProductsController < ApplicationController
 
   private
 
+    # def set_user
+    #   @user_id = User.find(params[:id])
+    # end
+
     def set_cats
       @cats = Category.all.where(dispiay: true)
     end
@@ -117,6 +86,6 @@ class ProductsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def product_params
-      params.require(:product).permit(:name, :description, :price, :category_id, :mens_watch, :womens_watch, :kids_watch, :mechanic_watch, :electronic_watch, :available)
+      params.require(:product).permit(:name, :description, :price, :category_id, :available)
     end
 end

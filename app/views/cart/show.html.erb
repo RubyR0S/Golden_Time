@@ -1,0 +1,24 @@
+<div>
+  <p><button class="btn btn-dark"><%= link_to 'Back to Shopping', products_path, class: 'nav-link px-2' %></button></p>
+</div>
+<% @order_items.each do |item| %>
+  <div class="card col-4">
+    <div class="card-body">
+      <h3><%= item.product.name %></h3>
+      <p><%= item.product.description %></p>
+      <h3><%= item.product.price %>$</h3>
+      <%= form_with model: item do |f| %>
+        <%= f.hidden_field :product_id, value: item.product.id %>
+        <%= f.hidden_field :quantity, value: item.quantity.to_i %>
+  
+        <%# <%= f.submit "Update Cart" %> 
+        <button class='btn btn-primary btn-sm'><%= link_to 'Remove Item', item, method: :delete, class: 'nav-link px-2'%></button>
+      <% end %>
+    </div>
+  </div>
+  <br>
+<% end %>
+<h3>Your current order has a total of: <%= @current_order.total_sum %>$</h3><div><button class="btn btn-dark"><%= link_to 'To Order', final_order_path, class: 'nav-link px-2' %></button></div>
+<div>
+  <p><button class="btn btn-dark"><%= link_to 'Back to Shopping', products_path, class: 'nav-link px-2' %></button></p>
+</div>

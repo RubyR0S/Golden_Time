@@ -12,8 +12,8 @@ class SessionsController < ApplicationController
       flash[:success] = "Welcome back!"
       redirect_to root_path
     else
-      flash[:warning] = "Incorrect email or password!"
-      redirect_to :new
+      flash[:danger] = "Incorrect email or password!"
+      redirect_to new_session_path
     end
   end
   

@@ -1,8 +1,9 @@
 <h1>Products</h1>
+<%= @user_id %>
 <div class="menu-container">
     <div class="row">
       <div class="col-12">
-        <%= form_tag(search_products_path, method: :get) do %>
+        <%= form_tag(products_path, method: :post) do %>
 
           <div class="input-group mb-5">
             <div class="col-3" style="padding:0">
@@ -13,20 +14,12 @@
             </div>
 
             <div class="col-2" style="padding:0">
-              <%= text_field_tag(:price_from, nil, class:'form-control', placeholder: 'Price from...')%>
+              <%= text_field_tag(:price_from, @price_from, class:'form-control', placeholder: 'Price from...')%>
             </div>
             <div class="col-2" style="padding:0">
               <%= text_field_tag(:price_to, nil, class:'form-control', placeholder: 'Price to...')%>
             </div>
 
-                <%# <div class="col-3" style="padding:0">
-                  <%= select_tag "filter", options_for_select(['Select Category', 
-                  'Mens Watches', 
-                  'Womens Watches', 
-                  'Kids Watches', 
-                  'Mechanic Watches', 
-                  'Electronic Watches']), class:'custom-select form-control'%>
-                <%# </div>  %> 
             <div class="col-1" style="padding:0">
               <%= submit_tag 'Search', class: 'btn btn-dark'%>
             </div>
@@ -39,19 +32,22 @@
 
   <div class="menu-container">
     <div class="row">
-      <div class="col-12">
-        <%= form_tag %>
-      </div>
-    </div>
-    <div class="row">
       <% @products.each do |product| %>
-        <div class="col-4"><br>
-          <h5><%= product.name %></h5>
-          <p><%= product.description %></p>
-          <span><%= product.price %>$</span><br>
+        <div class="card col-4">
+          <div class="card-body">
+            <br>
+            <h5><%= product.name %></h5>
+            <p><%= product.description %></p>
+            <span><%= product.price %>$</span><br>
+            <%= form_with model: @order_item do |f| %>
+              <%= f.hidden_field :product_id, value: product.id %>
+              <%= f.number_field :quantity, value: 1, min: 1, readonly: true %>
+              <%= f.submit 'Add to Cart' %>
+            <% end %>
           <%# <%= link_to 'Show', product %> 
           <%# <%= link_to 'Edit', edit_product_path(product) %>
           <%# <%= link_to 'Destroy', product, method: :delete, data: { confirm: 'Are you sure?' } %> 
+          </div>
         </div>
       <% end %>
     </div>

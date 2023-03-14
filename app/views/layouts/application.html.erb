@@ -6,32 +6,14 @@
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%# <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> %>
+
   </head>
 
   <body>
-    <header class="p-3 bg-dark text-white">
-      <div class="container">
-        <nav class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-          <ul class="nav col-12 col-lg-auto me-auto mb-2 mb-md-0">
-            <li><%= link_to 'Home', root_path, class: 'nav-link px-2 text-white' %></li>
-            <li><%= link_to 'Products', products_path, class: 'nav-link px-2 text-white' %></li>
-          </ul>
-
-          <ul class="nav col-12 col-lg-auto mb-2 mb-md-0">
-            <% if user_signed_in? %>
-              <li class="nav-link px-2 text-white" href="#"><%= current_user.email %></li>
-              <li><%= link_to 'Log Out', session_path, class: 'nav-link px-2 text-white', 
-                   data: {method: :delete}%></li>
-              <li><%= link_to 'Edit Profile', edit_user_path(current_user), class: 'nav-link px-2 text-white'%></li>
-            <% else %>
-              <li><%= link_to 'Sign Up', new_user_path, class: 'nav-link px-2 text-white' %></li>
-              <li><%= link_to 'Log in', new_session_path, class: 'nav-link px-2 text-white' %></li>
-            <% end %>
-          </ul>  
-        </nav>
-      </div>
-    </header>
-
+   
+    <%= render 'layouts/main_menu' %>
+    
     <main class="container mt-3">
       <% flash.each do |k, v| %>
         <%= tag.div v, class: "alert alert-#{k}", role: 'alert' %>
