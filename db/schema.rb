@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20230314155740) do
+ActiveRecord::Schema.define(version: 20230315155148) do
 
   create_table "categories", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string "category_name"
@@ -81,7 +81,9 @@ ActiveRecord::Schema.define(version: 20230314155740) do
     t.string "last_name", null: false
     t.string "address", null: false
     t.string "phone_number", null: false
+    t.integer "role", default: 0, null: false
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["role"], name: "index_users_on_role"
   end
 
   add_foreign_key "final_order_products", "final_orders"

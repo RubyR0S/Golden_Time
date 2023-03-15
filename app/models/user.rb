@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  enum role: { basic: 0, admin: 1 }, _suffix: :role
   has_secure_password
   has_many :orders
   has_many :final_orders

@@ -12,6 +12,7 @@ User.create!(first_name: 'Test',
             phone_number: '345', 
             email: 'test@ukr.net',
             password: '12345678',
+            role: 0,
             password_confirmation: '12345678')
 
 Category.create!(category_name: "Watches for Men", display: true)

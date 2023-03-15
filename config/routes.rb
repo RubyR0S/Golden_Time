@@ -9,6 +9,10 @@ Rails.application.routes.draw do
       post :index
     end
   end
+
+  namespace :admin do
+    resources :users
+  end
   
   root 'mains#index'
 
