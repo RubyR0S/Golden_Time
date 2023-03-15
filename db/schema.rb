@@ -10,13 +10,35 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20230313143617) do
+ActiveRecord::Schema.define(version: 20230314155740) do
 
   create_table "categories", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string "category_name"
     t.boolean "display"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "final_order_products", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.bigint "final_order_id"
+    t.bigint "product_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "quantity"
+    t.index ["final_order_id"], name: "index_final_order_products_on_final_order_id"
+    t.index ["product_id"], name: "index_final_order_products_on_product_id"
+  end
+
+  create_table "final_orders", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "first_name", null: false
+    t.string "last_name", null: false
+    t.string "address", null: false
+    t.string "phone_number", null: false
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.float "total_sum", limit: 24
+    t.index ["user_id"], name: "index_final_orders_on_user_id"
   end
 
   create_table "order_items", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
@@ -62,6 +84,9 @@ ActiveRecord::Schema.define(version: 20230313143617) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  add_foreign_key "final_order_products", "final_orders"
+  add_foreign_key "final_order_products", "products"
+  add_foreign_key "final_orders", "users"
   add_foreign_key "order_items", "orders"
   add_foreign_key "order_items", "products"
   add_foreign_key "orders", "users"

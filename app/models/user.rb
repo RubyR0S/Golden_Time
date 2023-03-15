@@ -1,7 +1,8 @@
 class User < ApplicationRecord
   has_secure_password
   has_many :orders
-  
+  has_many :final_orders
+
   validates :first_name, presence: true
   validates :last_name, presence: true
   validates :address, presence: true

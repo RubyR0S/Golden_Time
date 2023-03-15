@@ -20,12 +20,6 @@ class OrderItemsController < ApplicationController
     redirect_to cart_path
   end
 
-  def create_final_order
-    @user = current_user
-    @order_items = current_order.order_items
-
-  end
-
   private
 
   def order_params

@@ -14,6 +14,9 @@ class ProductsController < ApplicationController
     @products = @products.where("price >= ?", params[:price_from])                                                   if params[:price_from].present?
     @products = @products.where("price <= ?", params[:price_to])                                                     if params[:price_to].present?
     @price_from = params[:price_from]
+    @price_to = params[:price_to]
+    @search = params[:search]
+    @category_id = params[:category_id]
     @products
   end
 

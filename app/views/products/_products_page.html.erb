@@ -7,17 +7,18 @@
 
           <div class="input-group mb-5">
             <div class="col-3" style="padding:0">
-              <%= select_tag :category_id, options_for_select(Category.all.collect { |c| [c.category_name, c.id]}), class: 'form-control', prompt: 'Select category'%>
+              <%= select_tag :category_id, options_for_select(Category.all.collect { |c| [c.category_name, c.id]}, @category_id), class: 'form-control', prompt: 'Select category'%>
+
             </div>
             <div class="col-4" style="padding:0">                 
-              <%= text_field_tag(:search, nil, class:'form-control', placeholder: 'Search...')%>
+              <%= text_field_tag(:search, @search, class:'form-control', placeholder: 'Search...')%>
             </div>
 
             <div class="col-2" style="padding:0">
               <%= text_field_tag(:price_from, @price_from, class:'form-control', placeholder: 'Price from...')%>
             </div>
             <div class="col-2" style="padding:0">
-              <%= text_field_tag(:price_to, nil, class:'form-control', placeholder: 'Price to...')%>
+              <%= text_field_tag(:price_to, @price_to, class:'form-control', placeholder: 'Price to...')%>
             </div>
 
             <div class="col-1" style="padding:0">
@@ -41,7 +42,7 @@
             <span><%= product.price %>$</span><br>
             <%= form_with model: @order_item do |f| %>
               <%= f.hidden_field :product_id, value: product.id %>
-              <%= f.number_field :quantity, value: 1, min: 1, readonly: true %>
+              <%= f.number_field :quantity, value: 1, min: 1 %>
               <%= f.submit 'Add to Cart' %>
             <% end %>
           <%# <%= link_to 'Show', product %> 

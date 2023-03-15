@@ -38,5 +38,5 @@ class ApplicationController < ActionController::Base
     session.delete :user_id
   end
 
-  helper_method :current_user, :user_signed_in? 
+  helper_method :current_user, :user_signed_in?, :current_order
 end
