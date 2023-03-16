@@ -1,0 +1,10 @@
+<tr>
+  <th scope="row"><%= category.id %></th>
+  <td><%= category.category_name %></td>
+  <td><%= category.created_at %></td>
+  <td>
+    <%= link_to 'Edit',edit_admin_category_path(category), class: 'btn btn-secondary' %>
+    <%= link_to 'Destroy', admin_category_path(category), class: 'btn btn-danger',
+    data: { method: :delete, confirm: 'Are you sure?'}  %>
+  </td> 
+</tr>

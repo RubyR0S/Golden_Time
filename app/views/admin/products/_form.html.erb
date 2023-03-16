@@ -1,0 +1,62 @@
+<%= form_with model: [:admin, product] do |f| %>
+  <% if product.errors.full_messages.any? %>
+    <div class="alert alert-danger">
+      <ul class="mb-0">
+        <% product.errors.full_messages.each do |msg|%>
+          <li><%= msg %></li>
+        <% end %>
+      </ul> 
+    </div>
+  <% end %>
+  <div class="mb-3 row">
+    <div class="col-sm-2 col-form-label"> 
+      <%= f.label :name %>
+    </div>
+    <div class="col-sm-10">
+      <%= f.text_field :name, placeholder: 'Name of Product', class: 'form-control form-control-lg' %>
+    </div>
+  </div>
+
+  <div class="mb-3 row">
+    <div class="col-sm-2 col-form-label"> 
+      <%= f.label :description %>
+    </div>
+    <div class="col-sm-10">
+      <%= f.text_area :description, placeholder: 'Description of Product', class: 'form-control form-control-lg' %>
+    </div>
+  </div>
+
+  <div class="mb-3 row">
+    <div class="col-sm-2 col-form-label"> 
+      <%= f.label :price %>
+    </div>
+    <div class="col-sm-10">
+      <%= f.text_field :price, placeholder: 'Product price', class: 'form-control form-control-lg' %>
+    </div>
+  </div>
+
+  <div class="mb-3 row">
+    <div class="col-sm-2 col-form-label"> 
+      <%= f.label :available %>
+    </div>
+    <div class="col-sm-10">
+      <%= f.text_field :available, placeholder: 'Available product?', class: 'form-control form-control-lg' %>
+    </div>
+  </div>
+
+  <div class="mb-3 row">
+    <div class="col-sm-2 col-form-label"> 
+      <%= f.label :category %>
+    </div>
+    <div class="col-sm-10">
+      <%= f.select :category_id, options_for_select(Category.all.collect { |c| [c.category_name, c.id]}), class: 'form-select form-select-lg' %>
+    </div>
+  </div>
+
+  <%= f.submit (product.new_record? ? 'Add a new Product' : 'Save changes'), class: 'btn btn-primary' %>
+<% end %>
+<br>
+<%= link_to 'Back to Admin Page', admin_products_path, class: 'btn btn-primary' %>
+
+
+

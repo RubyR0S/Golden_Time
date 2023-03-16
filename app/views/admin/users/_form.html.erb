@@ -81,5 +81,7 @@
     </div>
   </div>
 
-  <%= f.submit (user.new_record? ? 'Register a new User' : 'Save changes'), class: 'btn btn-primary btn-lg'%>
+  <%= f.submit (user.new_record? ? 'Register a new User' : 'Save changes'), class: 'btn btn-primary' %>
 <% end %>
+<br>
+<%= link_to 'Back to Admin Page', admin_users_path, class: 'btn btn-primary' %>

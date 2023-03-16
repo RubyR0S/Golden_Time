@@ -1,0 +1,22 @@
+<%= form_with model: [:admin, category] do |f| %>
+  <% if category.errors.full_messages.any? %>
+    <div class="alert alert-danger">
+      <ul class="mb-0">
+        <% category.errors.full_messages.each do |msg|%>
+          <li><%= msg %></li>
+        <% end %>
+      </ul> 
+    </div>
+  <% end %>
+    <div class="mb-3 row">
+    <div class="col-sm-2 col-form-label"> 
+      <%= f.label :category_name %>
+    </div>
+    <div class="col-sm-10">
+      <%= f.text_field :category_name, placeholder: 'Name of Products Category', class: 'form-control form-control-lg' %>
+    </div>
+  </div>
+  <%= f.submit (category.new_record? ? 'Add a new Products Category' : 'Save changes'), class: 'btn btn-primary' %>
+<% end %>
+<br>
+<%= link_to 'Back to Admin Page', admin_products_path, class: 'btn btn-primary' %>
