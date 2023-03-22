@@ -1,12 +1,12 @@
 <h1>Products</h1>
 <%= @user_id %>
 <div class="menu-container">
-    <div class="row">
-      <div class="col-12">
+    <div class="row" style="display: grid; grid-template-columns: 73% 27%;">
+      <div class="col-12 input-group">
         <%= form_tag(products_path, method: :post) do %>
 
           <div class="input-group mb-5">
-            <div class="col-3" style="padding:0">
+            <div class="col-2" style="padding:0">
               <%= select_tag :category_id, options_for_select(Category.all.collect { |c| [c.category_name, c.id]}, @category_id), class: 'form-control', prompt: 'Select category'%>
 
             </div>
@@ -21,41 +21,44 @@
               <%= text_field_tag(:price_to, @price_to, class:'form-control', placeholder: 'Price to...')%>
             </div>
 
-            <div class="col-1" style="padding:0">
+            <div class="col-2" style="padding:0">
               <%= submit_tag 'Search', class: 'btn btn-dark'%>
             </div>
-
           </div>
         <% end %>
-      </div>     
-    </div>
-
-
-  <div class="menu-container">
-    <div class="row">
-      <% @products.each do |product| %>
-        <div class="card col-4">
-          <div class="card-body">
-            <br>
-            <h5><%= product.name %></h5>
-            <p><%= product.description %></p>
-            <span><%= product.price %>$</span><br>
-            <%= form_with model: @order_item do |f| %>
-              <%= f.hidden_field :product_id, value: product.id %>
-              <%= f.number_field :quantity, value: 1, min: 1 %>
-              <%= f.submit 'Add to Cart' %>
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Description</th>
+              <th>Price</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @products.each do |product| %>
+              <tr>
+                <td><%= product.name %></td>
+                <td><%= product.description %></td>
+                <td><%= number_to_currency(product.price) %></td>
+                <td><%= button_to 'Add to Cart', product_items_path(product_id: product.id), 
+                  remote: true %></td> 
+              </tr>
             <% end %>
-          <%# <%= link_to 'Show', product %> 
-          <%# <%= link_to 'Edit', edit_product_path(product) %>
-          <%# <%= link_to 'Destroy', product, method: :delete, data: { confirm: 'Are you sure?' } %> 
-          </div>
-        </div>
-      <% end %>
+          </tbody>
+        </table>
+      </div> 
+        <div id='cart'
+          <% if @cart.product_items.empty? %>
+            style = "display: none"
+          <% end %>
+          >
+        <%= render @cart %>
+      </div>    
     </div>
   </div>
-  <br>
-  <%# <%= link_to 'New Product', new_product_path %> 
-</div>
+     
+          
 
 
-
+  

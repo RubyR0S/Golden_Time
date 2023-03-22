@@ -1,15 +1,17 @@
-<h1>Placing an Order</h1>
-<%= form_for @final_order do |f| %>
-  <% if @final_order.errors.full_messages.any? %>
+<h1>Please Enter Your Details</h1>
+<%= form_for @order do |f| %>
+  <% if @order.errors.full_messages.any? %>
     <div class="alert alert-danger">
       <ul class="mb-0">
-        <% @final_order.errors.full_messages.each do |msg|%>
+        <% @order.errors.full_messages.each do |msg|%>
           <li><%= msg %></li>
         <% end %>
       </ul> 
     </div>
   <% end %>
-  <h3>1.Your contact details</h3>
+
+  <%= current_user %>
+
   <div class="col-10">
     <div class="d-flex justify-content-between">
       <div class="col-sm-5">
@@ -25,7 +27,7 @@
           <%= f.text_field :last_name, placeholder: 'Last Name', class: 'form-control form-control-lg' %>
         </div>
       </div>
-    </div><br> 
+    </div>
   </div>
 
   <div class="mb-3">
@@ -45,26 +47,16 @@
       <%= f.text_field :address, placeholder: 'Your Address', class: 'form-control form-control-lg' %> 
     </div>
   </div>
-  <h3>2.Your order</h3>
-  <div class="menu-container col-8">
-    <ol><div class="row">
-    <% @order_items.each do |product| %>
-      <li><div class="card col-6">
-        <div class="card-body">
-          <h3><%= product.product.name %></h3>
-          <p><%= product.product.description %></p>
-          <h3><%= product.product.price %>$</h3>
-          <h5>Count <%= product.quantity.to_i %></h5> 
-          <%# <%= hidden_field_tag :quantity, value: product.product.quantity.to_i %> 
-        </div>
-      </div></li>
-    <% end %>
-    <%# <h5>Count <%= current_order.order_items.quantity.to_i</h5 %>
-    </div></ol>
-    <h3>To be paid: <%= @current_order.total_sum %>$</h3>
-  </div>
-  <%= hidden_field_tag :product_ids, current_order.products.ids.join(',') %>
 
-  <%= f.submit 'Order now', class: 'btn btn-primary btn-lg' %><br>
+  <div class="mb-3">
+    <div class="col-sm-2 col-form-label">
+      <%= f.label :pay_type %>
+    </div>
+    <div class="col-sm-10">
+      <%= f.select :pay_type, Order::PAYMENT_TYPES, prompt: 'Select a payment method', class: 'form-select form-select-lg' %> 
+    </div>
+  </div>
+
+  <%= f.submit 'Place Order', class: 'btn btn-primary btn-lg' %><br>
 <% end %>
 <br>

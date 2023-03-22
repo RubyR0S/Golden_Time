@@ -4,6 +4,14 @@ class ApplicationController < ActionController::Base
 
   private
 
+  def current_cart
+    Cart.find(session[:cart_id])
+  rescue ActiveRecord::RecordNotFound
+    cart = Cart.create
+    session[:cart_id] = cart.id
+    cart
+  end
+
   def current_order
     @current_order ||= Order.find_by_id(session[:order_id]).presence || Order.new
   end
@@ -38,5 +46,5 @@ class ApplicationController < ActionController::Base
     session.delete :user_id
   end
 
-  helper_method :current_user, :user_signed_in?, :current_order
+  helper_method :current_user, :user_signed_in?, :current_order, :current_cart
 end
