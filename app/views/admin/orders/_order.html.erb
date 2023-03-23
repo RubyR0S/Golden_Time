@@ -1,0 +1,14 @@
+<tr>
+  <th scope="row"><%= order.id %></th>
+  <td><%= order.first_name %></td>
+  <td><%= order.last_name %></td>
+  <td><%= order.address %></td>
+  <td><%= order.phone_number %></td>
+  <td><%= order.pay_type %></td>
+  <td><%= number_to_currency(order.total_sum) %></td>
+  <td><%= order.created_at %></td>
+  <td>
+      <%= link_to 'Edit', edit_admin_order_path(order), class: 'btn btn-secondary' %>
+      <%= link_to 'Ordered Products', admin_ordered_products_path(order.id), class: 'btn btn-secondary' %>
+  </td>
+</tr>

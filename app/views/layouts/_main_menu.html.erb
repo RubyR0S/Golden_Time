@@ -7,6 +7,15 @@
         <%# <li><%= link_to 'Cart', cart_path, class: 'nav-link px-2 text-white' %> 
       </ul>
 
+      <ul  class="nav col-12 col-lg-auto ml-auto mb-2 mb-md-0 justify-content-center">      
+        <%= form_tag(products_path, method: :post) do %>
+          <div class="form-group" style="display:flex; justify-content:flex-end;">
+            <%= text_field_tag(:search, @search, class:'form-control', placeholder: 'Search...')%>
+            <%= submit_tag 'Search', class: 'btn btn-light'%>
+          </div>
+        <% end %>
+      </ul>
+
       <ul class="nav col-12 col-lg-auto mb-2 mb-md-0">
         <% if user_signed_in? %>
           <li class="nav-link px-2 text-white" href="#"><%= current_user.email %></li>

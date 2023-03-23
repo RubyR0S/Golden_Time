@@ -5,34 +5,30 @@
       <div class="col-12 input-group">
         <%= form_tag(products_path, method: :post) do %>
 
-          <div class="input-group mb-5">
-            <div class="col-2" style="padding:0">
+          <div class="input-group  mb-5">
+            <div class="col-4" style="padding:0">
               <%= select_tag :category_id, options_for_select(Category.all.collect { |c| [c.category_name, c.id]}, @category_id), class: 'form-control', prompt: 'Select category'%>
 
             </div>
-            <div class="col-4" style="padding:0">                 
-              <%= text_field_tag(:search, @search, class:'form-control', placeholder: 'Search...')%>
-            </div>
-
-            <div class="col-2" style="padding:0">
+            <div class="col-3" style="padding:0">
               <%= text_field_tag(:price_from, @price_from, class:'form-control', placeholder: 'Price from...')%>
             </div>
-            <div class="col-2" style="padding:0">
+            <div class="col-3" style="padding:0">
               <%= text_field_tag(:price_to, @price_to, class:'form-control', placeholder: 'Price to...')%>
             </div>
 
             <div class="col-2" style="padding:0">
-              <%= submit_tag 'Search', class: 'btn btn-dark'%>
+              <%= submit_tag 'Filter out', class: 'btn btn-dark'%>
             </div>
           </div>
         <% end %>
-        <table>
+        <table class="table table-striped table-hover">
           <thead>
             <tr>
-              <th>Name</th>
-              <th>Description</th>
-              <th>Price</th>
-              <th></th>
+              <th scope="col">Name</th>
+              <th scope="col">Description</th>
+              <th scope="col">Price</th>
+              <th scope="col"></th>
             </tr>
           </thead>
           <tbody>

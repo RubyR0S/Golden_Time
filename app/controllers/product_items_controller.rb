@@ -1,7 +1,6 @@
 class ProductItemsController < ApplicationController
 
   def new
-   
   end
 
   def create

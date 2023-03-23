@@ -21,6 +21,8 @@ Rails.application.routes.draw do
     resources :users
     resources :products
     resources :categories 
+    resources :orders 
+    get 'ordered_products', to: 'orders#list_of_ordered_products'
   end
 
   root 'mains#index'

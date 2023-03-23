@@ -1,15 +1,9 @@
 class OrdersController < ApplicationController
-  # before_action :set_order
-
-  # def index
-  #   @orders = Order.all
-  # end
 
   def new
     @cart = current_cart
     if @cart.product_items.empty?
       redirect_to products_url
-     
     end
 
    @order = Order.new
@@ -18,15 +12,6 @@ class OrdersController < ApplicationController
     format.json { render json: @order } 
    end
   end
-    
-  #   # (
-  #   #         user: current_user,
-  #   #         first_name: current_user.first_name,
-  #   #         last_name: current_user.last_name,
-  #   #         phone_number: current_user.phone_number,
-  #   #         address: current_user.address
-  #   #       )
-  # end
 
   def create
     @order = Order.new(order_params)
@@ -39,7 +24,7 @@ class OrdersController < ApplicationController
       Cart.destroy(session[:cart_id])
       session[:cart_id] = nil
       flash[:success] = "Thank you for your order."
-      redirect_to products_url # notice: "Thank you for your order."
+      redirect_to products_url 
     else
       @cart = current_cart
       render action: "new"
@@ -47,10 +32,6 @@ class OrdersController < ApplicationController
   end
 
   private
-
-  # def set_order
-  #   @order = Order.find(params[:id]) ||  @order = Order.new(user: current_user)
-  # end
 
   def order_params
     params.require(:order).permit(:first_name, :last_name, :phone_number, :address, :pay_type)

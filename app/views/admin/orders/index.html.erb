@@ -1,0 +1,21 @@
+<%= render 'admin/admin_menu' %>
+<h2>List of Orders</h2>
+
+<table class="table table-striped table-hover">
+  <thead>
+    <tr>
+      <th scope="col">№</th>
+      <th scope="col">First Name</th>
+      <th scope="col">Last Name</th>
+      <th scope="col">Address</th>
+      <th scope="col">Phone number</th>
+      <th scope="col">Pay Type</th>
+      <th scope="col">Total Price</th>
+      <th scope="col">Created At</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= render @orders %>
+  </tbody>
+</table>
