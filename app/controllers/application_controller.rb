@@ -13,7 +13,12 @@ class ApplicationController < ActionController::Base
   end
 
   def current_order
-    @current_order ||= Order.find_by_id(session[:order_id]).presence || Order.new
+    # @current_order ||= Order.find_by_id(session[:order_id]).presence || Order.new
+    Order.find(session[:order_id])
+  rescue ActiveRecord::RecordNotFound
+    order = Order.create
+    session[:order_id] = order.id
+    order
   end
 
   def current_user

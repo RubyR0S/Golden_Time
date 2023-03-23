@@ -8,7 +8,7 @@ class OrdersController < ApplicationController
   def new
     @cart = current_cart
     if @cart.product_items.empty?
-      redirect_to products_url, flash[:danger] = "Your cart is empty"
+      redirect_to products_url
      
     end
 
@@ -31,13 +31,14 @@ class OrdersController < ApplicationController
   def create
     @order = Order.new(order_params)
     @order.user_id = current_user.id
+    @cart = current_cart
     @order.add_product_items_from_cart(current_cart)
 
 
     if @order.save
       Cart.destroy(session[:cart_id])
       session[:cart_id] = nil
-      # flash[:success] = "Thank you for your order."
+      flash[:success] = "Thank you for your order."
       redirect_to products_url # notice: "Thank you for your order."
     else
       @cart = current_cart

@@ -54,14 +54,14 @@ Product.create!(
 )
 
 Product.create!(
-  name: "Womens Watch",
+  name: "Womens 2.0 Watch",
   description: "Amazing watch for womens",
   price: rand(10..99),
   category: Category.find(2)
 )
 
 Product.create!(
-  name: "Kids Watch",
+  name: "Kids 2.0 Watch",
   description: "Amazing watch for kids",
   price: rand(10..99),
   category: Category.find(3)

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20230322103135) do
+ActiveRecord::Schema.define(version: 20230322191647) do
 
   create_table "carts", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.datetime "created_at", null: false
@@ -22,39 +22,6 @@ ActiveRecord::Schema.define(version: 20230322103135) do
     t.boolean "display"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "final_order_products", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.bigint "final_order_id"
-    t.bigint "product_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "quantity"
-    t.index ["final_order_id"], name: "index_final_order_products_on_final_order_id"
-    t.index ["product_id"], name: "index_final_order_products_on_product_id"
-  end
-
-  create_table "final_orders", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string "first_name", null: false
-    t.string "last_name", null: false
-    t.string "address", null: false
-    t.string "phone_number", null: false
-    t.bigint "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.float "total_sum", limit: 24
-    t.index ["user_id"], name: "index_final_orders_on_user_id"
-  end
-
-  create_table "order_items", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
-    t.integer "quantity"
-    t.bigint "product_id"
-    t.bigint "order_id"
-    t.float "unit_price", limit: 24
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["order_id"], name: "index_order_items_on_order_id"
-    t.index ["product_id"], name: "index_order_items_on_product_id"
   end
 
   create_table "orders", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
@@ -108,11 +75,6 @@ ActiveRecord::Schema.define(version: 20230322103135) do
     t.index ["role"], name: "index_users_on_role"
   end
 
-  # add_foreign_key "final_order_products", "final_orders"
-  # add_foreign_key "final_order_products", "products"
-  # add_foreign_key "final_orders", "users"
-  # add_foreign_key "order_items", "orders"
-  # add_foreign_key "order_items", "products"
   add_foreign_key "orders", "users"
   add_foreign_key "product_items", "carts"
   add_foreign_key "product_items", "orders"

@@ -1,16 +1,15 @@
 class ProductItemsController < ApplicationController
 
   def new
+   
   end
 
   def create
     @cart = current_cart
-    # @order = current_order
+    @order = current_order
     product = Product.find(params[:product_id])
     @product_item = @cart.add_product(product.id)
     # @order.user_id = current_user.id
-    # @order.save
-    # session[:order_id] = @order.id
 
     respond_to do |format|
       if @product_item.save
@@ -18,7 +17,7 @@ class ProductItemsController < ApplicationController
         format.js { @current_item = @product_item }
         format.any { render plain: 'OK' } # fallback format
       else
-        format.html { render action: "new" }
+        format.html { render :new }
         format.js { render json: @product_item.errors, status: :unprocessable_entity }
       end
     end
