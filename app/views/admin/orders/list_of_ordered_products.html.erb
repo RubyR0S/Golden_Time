@@ -12,11 +12,11 @@
   <tbody>
     <% @ordered_products.each do |product| %>
     <tr>
-      <th scope="row"><%= product.id %></th>
-      <td><%= product.name %></td>
-      <td><%= product.description %></td>
-      <td><%= Product.find(product.id).category.category_name %></td>
-      <td><%= number_to_currency(product.price) %></td>
+      <th scope="row"><%= product.product.id %></th>
+      <td><%= product.product.name %></td>
+      <td><%= product.product.description %></td>
+      <td><%= Product.find(product.product.id).category.category_name %></td>
+      <td><%= number_to_currency(product.product.price) %></td>
     </tr>
     <% end %>
   </tbody>

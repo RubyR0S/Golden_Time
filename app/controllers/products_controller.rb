@@ -2,9 +2,15 @@ class ProductsController < ApplicationController
   before_action :set_product, only: %i[ show edit update destroy ]
 
   def index
-    @products = Product.where(available: true)
+    if params[:category_id].present?
+      @category = Category.find(params[:category_id])
+      @products = @category.products.where(available: true)
+    else
+      @products = Product.where(available: true)
+    end
+    
     @cart = current_cart
-    # @order_item = current_order.order_items.new
+    @categories = Category.all
 
     @products = @products.where(category_id: params[:category_id])                                                   if params[:category_id].present?
     @products = @products.where("name LIKE ? or description LIKE ?", "%#{params[:search]}%", "%#{params[:search]}%") if params[:search].present?

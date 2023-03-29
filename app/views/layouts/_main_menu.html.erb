@@ -4,7 +4,7 @@
       <ul class="nav col-12 col-lg-auto me-auto mb-2 mb-md-0">
         <li><%= link_to 'Home', root_path, class: 'nav-link px-2 text-white' %></li>
         <li><%= link_to 'Products', products_path, class: 'nav-link px-2 text-white' %></li>
-        <%# <li><%= link_to 'Cart', cart_path, class: 'nav-link px-2 text-white' %> 
+        <li data-toggle="modal" data-target="#cart_modal" class='nav-link px-2 text-white'>Cart</li>
       </ul>
 
       <ul  class="nav col-12 col-lg-auto ml-auto mb-2 mb-md-0 justify-content-center">      
@@ -30,3 +30,6 @@
     </nav>
   </div>
 </header>
+
+
+          

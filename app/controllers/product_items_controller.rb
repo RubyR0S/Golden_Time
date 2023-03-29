@@ -6,8 +6,10 @@ class ProductItemsController < ApplicationController
   def create
     @cart = current_cart
     @order = current_order
-    product = Product.find(params[:product_id])
-    @product_item = @cart.add_product(product.id)
+    # product = Product.find(params[:product_id])
+    # @product_item = @cart.add_product(product.id, params[:quantity].to_i)
+    product = Product.find(params[:product_item][:product_id])
+    @product_item = @cart.add_product(product.id, params[:product_item][:quantity].to_i)
     # @order.user_id = current_user.id
 
     respond_to do |format|
@@ -20,14 +22,13 @@ class ProductItemsController < ApplicationController
         format.js { render json: @product_item.errors, status: :unprocessable_entity }
       end
     end
-    
   end
 
   def destroy
     @cart = current_cart
     @product_item = @cart.product_items.find(params[:id])
     @product_item.destroy
-    redirect_to products_url
+    redirect_to products_path
   end
 
   private

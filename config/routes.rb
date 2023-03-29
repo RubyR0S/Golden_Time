@@ -1,8 +1,5 @@
 Rails.application.routes.draw do
-  # resources :final_orders, only: [:new, :create]
-  # resources :order_items
-  # get 'cart', to: 'cart#show'
-
+  
   resources :product_items
   resources :orders
 

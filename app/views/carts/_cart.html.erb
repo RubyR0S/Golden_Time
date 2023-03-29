@@ -1,4 +1,4 @@
-<div class="cart_title"><h1>Your Cart<h1></div> 
+<%# <div class="cart_title"><h1>Your Cart<h1></div>  %>
 <table>
   <%= render(cart.product_items) %>
   <tr class="total_line">
@@ -7,4 +7,5 @@
   </tr>
 </table>
 
-<%= button_to 'Empty cart', cart, method: :delete, confirm: 'Are you sure?' %> <%= button_to 'To Order', new_order_path, method: :get %>
+<%# <%= button_to 'Remove cart', cart, method: :delete, confirm: 'Are you sure?' %> 
+<%# <%= button_to 'To Order', new_order_path, method: :get %> 

@@ -6,11 +6,16 @@ class OrdersController < ApplicationController
       redirect_to products_url
     end
 
-   @order = Order.new
-    respond_to do |format|
-    format.html # new.html.erb
-    format.json { render json: @order } 
-   end
+    @order = Order.new(
+      first_name: current_user.first_name,
+      last_name: current_user.last_name,
+      phone_number: current_user.phone_number,
+      address: current_user.address
+    )
+      respond_to do |format|
+      format.html # new.html.erb
+      format.json { render json: @order } 
+    end
   end
 
   def create
