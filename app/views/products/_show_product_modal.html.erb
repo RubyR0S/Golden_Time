@@ -1,0 +1,39 @@
+<!-- Modal -->
+<div class="modal fade" id="show_product_<%= product.id %>" tabindex="-1" role="dialog" aria-labelledby="show_productLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="show_productLabel"><%= product.name %></h2>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <article class="card mt-3">
+          <div class="card-body">
+            <h3>Description: <%= product.description %></h3>
+            <%= form_for(current_cart.product_items.build(product: product), remote: true) do |f| %>
+              <h3>Quantity: <%= f.number_field :quantity, value: 1, min: 1 %>
+                <%= f.hidden_field :product_id, value: product.id %></h3>
+              <h3>Price: <%= number_to_currency(product.price) %></h3>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Continue shopping</button>
+                <%= f.submit 'Add to Cart', id: "hide-modal" ,data: {toggle: 'modal', target: '#cart_modal'}, class: 'btn btn-primary' %>
+              </div>
+            <% end %>
+          </div>
+        </article>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  $(document).ready(function() {
+    $(document).on('click', '.btn-primary', function() {
+      var productId = $(this).data('product-id');
+      $(this).closest('.modal').modal('hide');
+      $('#show_product_' + productId).modal('hide');
+    });
+  });
+</script>
