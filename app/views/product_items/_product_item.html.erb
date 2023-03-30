@@ -3,8 +3,15 @@
 <% else %>
 <tr>
 <% end %>
-  <td><%= product_item.quantity %>&times;</td>
+  <%# <td><%= product_item.quantity&times;</td>  %>
   <td><%= product_item.product.name %></td>
   <td class="item_price"><%= number_to_currency(product_item.total_price) %></td>
+  <td>
+    <%= form_for product_item, remote: true do |f| %>
+      <%= f.hidden_field :product_id, value: product_item.product.id %>
+      <%= f.number_field :quantity, value: product_item.quantity, min: 1 %>
+      <%= f.submit 'Update quantity'%>
+    <% end %>
+  </td>
   <td><%= button_to 'Remove Item', product_item, method: :delete %></td>
 </tr>

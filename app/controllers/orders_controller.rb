@@ -1,4 +1,5 @@
 class OrdersController < ApplicationController
+  before_action :require_current_user
 
   def new
     @cart = current_cart

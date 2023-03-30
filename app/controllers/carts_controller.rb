@@ -1,4 +1,6 @@
 class CartsController < ApplicationController
+  before_action :require_current_user
+
   def show
     @cart = current_cart
   end

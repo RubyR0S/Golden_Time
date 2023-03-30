@@ -1,4 +1,5 @@
 class ProductItemsController < ApplicationController
+  before_action :require_current_user
 
   def new
   end
@@ -6,11 +7,8 @@ class ProductItemsController < ApplicationController
   def create
     @cart = current_cart
     @order = current_order
-    # product = Product.find(params[:product_id])
-    # @product_item = @cart.add_product(product.id, params[:quantity].to_i)
     product = Product.find(params[:product_item][:product_id])
     @product_item = @cart.add_product(product.id, params[:product_item][:quantity].to_i)
-    # @order.user_id = current_user.id
 
     respond_to do |format|
       if @product_item.save
@@ -24,6 +22,20 @@ class ProductItemsController < ApplicationController
     end
   end
 
+  def update
+    @cart = current_cart
+    @product_item = @cart.product_items.find(params[:id])
+    # @product_item.update_attributes(product_item_params)
+
+
+    respond_to do |format|
+      if @product_item.update_attributes(product_item_params)
+        format.html
+        format.js
+      end
+    end
+  end
+
   def destroy
     @cart = current_cart
     @product_item = @cart.product_items.find(params[:id])
@@ -33,7 +45,7 @@ class ProductItemsController < ApplicationController
 
   private
 
-  # def product_item_params
-  #   params.require(:line_item).permit(:product_id)
-  # end
+  def product_item_params
+    params.require(:product_item).permit(:product_id, :quantity)
+  end
 end

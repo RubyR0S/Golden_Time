@@ -1,7 +1,8 @@
 module Admin  
   class CategoriesController < ApplicationController
     before_action :set_category, only: %i[ show edit update destroy ]
-
+    before_action :user_admin?
+    
     def index
       @categories = Category.all
     end

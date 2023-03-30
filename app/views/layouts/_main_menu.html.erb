@@ -5,6 +5,9 @@
         <li><%= link_to 'Home', root_path, class: 'nav-link px-2 text-white' %></li>
         <li><%= link_to 'Products', products_path, class: 'nav-link px-2 text-white' %></li>
         <li data-toggle="modal" data-target="#cart_modal" class='nav-link px-2 text-white'>Cart</li>
+        <% if current_user && current_user.admin_role? %>
+          <li><%= link_to 'Admin Side', admin_users_path, class: 'nav-link px-2 text-white' %></li>
+        <% end %>
       </ul>
 
       <ul  class="nav col-12 col-lg-auto ml-auto mb-2 mb-md-0 justify-content-center">      

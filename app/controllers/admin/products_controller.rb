@@ -1,6 +1,7 @@
 module Admin
   class ProductsController < ApplicationController
     before_action :set_product, only: %i[ show edit update destroy ]
+    before_action :user_admin?
 
     def index
       @products = Product.all

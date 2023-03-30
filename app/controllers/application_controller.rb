@@ -21,6 +21,13 @@ class ApplicationController < ActionController::Base
     order
   end
 
+  def user_admin?
+    unless current_user && current_user.admin_role?
+      flash[:danger] = "Access denied."
+      redirect_to root_path
+    end
+  end
+
   def current_user
     @current_user ||= User.find_by(id: session[:user_id]) if session[:user_id].present?
   end
@@ -51,5 +58,5 @@ class ApplicationController < ActionController::Base
     session.delete :user_id
   end
 
-  helper_method :current_user, :user_signed_in?, :current_order, :current_cart
+  helper_method :current_user, :user_signed_in?, :current_order, :current_cart, :user_admin
 end
